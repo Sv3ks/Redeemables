@@ -1,4 +1,4 @@
-example-redeemable:
-  commands:
-  - 'say %PLAYER% redeemed the example-redeemable!'
-  uses: 10
+example-redeemable: # Reward code
+  commands: # list of commands to execute when the reward is redeemed.
+    - 'say %PLAYER% redeemed the example-redeemable!' # %PLAYER% will be replaced with the reward receiver's ingame-name
+  uses: 10 # The use limit for the code. In this case only 10 players can redeem 'example-redeemable'

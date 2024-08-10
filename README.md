@@ -18,7 +18,7 @@ The default configuration file:
 ```yml
 example-redeemable: # Reward code
   commands: # list of commands to execute when the reward is redeemed.
-  - 'say %PLAYER% redeemed the example-redeemable!' # %PLAYER% will be replace with the reward receiver's ingame-name
+  - 'say %PLAYER% redeemed the example-redeemable!' # %PLAYER% will be replaced with the reward receiver's ingame-name
   uses: 10 # The use limit for the code. In this case only 10 players can redeem 'example-redeemable'
 ```
 

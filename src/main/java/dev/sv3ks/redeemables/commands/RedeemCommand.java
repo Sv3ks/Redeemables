@@ -45,7 +45,7 @@ public class RedeemCommand implements CommandExecutor {
             getPlugin().saveConfig();
             try {
                 for (String rewardCommand :
-                        getPlugin().getConfig().getStringList(args[0] + ".command")) {
+                        getPlugin().getConfig().getStringList(args[0] + ".commands")) {
                     Bukkit.dispatchCommand(
                             Bukkit.getConsoleSender(),
                             rewardCommand.replace("%PLAYER%", player.getName())
