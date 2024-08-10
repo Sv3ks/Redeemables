@@ -6,7 +6,7 @@
 
     <groupId>dev.sv3ks</groupId>
     <artifactId>Redeemables</artifactId>
-    <version>1.0-rc1</version>
+    <version>1.0-rc1.1</version>
     <packaging>jar</packaging>
 
     <name>Redeemables</name>
