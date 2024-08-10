@@ -44,13 +44,15 @@ public class RedeemCommand implements CommandExecutor {
             getPlugin().getConfig().set(args[0] + ".used_by", used_by);
             getPlugin().saveConfig();
             try {
-                Bukkit.dispatchCommand(
-                        Bukkit.getConsoleSender(),
-                        getPlugin().getConfig().getString(args[0] + ".command")
-                                .replace("%PLAYER%", player.getName())
-                );
+                for (String rewardCommand :
+                        getPlugin().getConfig().getStringList(args[0] + ".command")) {
+                    Bukkit.dispatchCommand(
+                            Bukkit.getConsoleSender(),
+                            rewardCommand.replace("%PLAYER%", player.getName())
+                    );
+                }
             } catch (NullPointerException e) {
-                sender.sendMessage("§4Internal Error: " + args[0] + ".command is not set.");
+                sender.sendMessage("§4Internal Error: " + args[0] + ".commands is not set.");
                 return true;
             }
             sender.sendMessage("§aYou redeemed " + args[0] + "§a!");

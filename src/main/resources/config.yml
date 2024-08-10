@@ -1,3 +1,4 @@
 example-redeemable:
-  command: 'say %PLAYER% redeemed the example-redeemable!'
+  commands:
+  - 'say %PLAYER% redeemed the example-redeemable!'
   uses: 10
