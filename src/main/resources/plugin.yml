@@ -3,6 +3,12 @@ version: '${project.version}'
 main: dev.sv3ks.redeemables.Redeemables
 api-version: 1.21
 commands:
+  ra:
+    description: The main command interface for the Redeemables plugin.
+    permission: redeemables.main
+    aliases:
+      - redeemables
+      - redeemable
   redeem:
     description: Redeem a reward by entering a code
     aliases:
