@@ -1,5 +1,6 @@
 package dev.sv3ks.redeemables;
 
+import dev.sv3ks.redeemables.commands.CommandTabCompleter;
 import dev.sv3ks.redeemables.commands.MainCommand;
 import dev.sv3ks.redeemables.commands.RedeemCommand;
 import dev.sv3ks.redeemables.commands.ReloadCommand;
@@ -25,6 +26,7 @@ public final class Redeemables extends JavaPlugin {
         getCommand("redeem").setExecutor(new RedeemCommand());
         getCommand("rareload").setExecutor(new ReloadCommand());
         getCommand("ra").setExecutor(new MainCommand());
+        getCommand("ra").setTabCompleter(new CommandTabCompleter());
 
         getLogger().info("Enabled");
     }

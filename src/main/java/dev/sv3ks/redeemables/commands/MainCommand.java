@@ -15,7 +15,7 @@ public class MainCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if (args.length == 0 || args[0].equalsIgnoreCase("info")) {
             commandSender.sendMessage(
-                    "§a/ra info\n" +
+                    "§a/ra help\n" +
                     "§a/ra <add|addcode> <reward-code> <uses>\n" +
                     "§a/ra <addcmd|addcommand> <reward-code> <command>"
             );
@@ -63,7 +63,7 @@ public class MainCommand implements CommandExecutor {
             commandSender.sendMessage("§aAdded " + cmd + " to " + args[0] + "'s commands.");
         }
 
-        commandSender.sendMessage("§cIncorrect usage. See correct usage with /ra information.");
+        commandSender.sendMessage("§cIncorrect usage. See correct usage with /ra help.");
         return true;
     }
 }
