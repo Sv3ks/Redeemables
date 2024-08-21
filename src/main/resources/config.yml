@@ -1,4 +1,5 @@
 example-redeemable: # Reward code
+  uses: 10 # The use limit for the code. In this case only 10 players can redeem 'example-redeemable'
+  required empty slots: 0 # How many empty slots a player must have before using this code.
   commands: # list of commands to execute when the reward is redeemed.
     - 'say %PLAYER% redeemed the example-redeemable!' # %PLAYER% will be replaced with the reward receiver's ingame-name
-  uses: 10 # The use limit for the code. In this case only 10 players can redeem 'example-redeemable'
