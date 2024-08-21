@@ -30,49 +30,50 @@ public class RedeemCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.RED + "Incorrect syntax. Correct syntax: /redeem <code>");
             return true;
         }
+        
+        String code = args[0];
 
-        if (!main.getConfig().isSet(args[0])) {
+        if (!main.getConfig().isSet(code)) {
             sender.sendMessage(ChatColor.RED + "Invalid code.");
             return true;
         }
 
-        if (main.getConfig().isSet(args[0] + ".used_by")) {
-            if (main.getConfig().getStringList(args[0] + ".used_by").contains(player.getUniqueId().toString())) {
-                sender.sendMessage(ChatColor.RED + "You already used that code!");
+        List<String> usedBy;
+        if (main.getConfig().isSet(code + ".used_by")) {
+            usedBy = main.getConfig().getStringList(code + ".used_by");
+        } else
+            usedBy = new ArrayList<>();
+        
+        if (!usedBy.isEmpty()) {
+            if (usedBy.contains(player.getUniqueId().toString())) {
+                player.sendMessage(ChatColor.RED + "You've already used that code!");
                 return true;
             }
-            if (main.getConfig().getStringList(args[0] + ".used_by").size() == main.getConfig().getInt(args[0] + ".uses")) {
-                sender.sendMessage(ChatColor.RED + "The code has reached its max uses.");
-                return true;
-            }
+
+            if (main.getConfig().isSet(code + ".uses"))
+                if (usedBy.size() >= main.getConfig().getInt(code + ".uses", 0)) {
+                    player.sendMessage(ChatColor.RED + "This code has reached its max uses.");
+                    return true;
+                }
         }
 
-        List<String> used_by = new ArrayList<>();
-        if (main.getConfig().isSet(args[0] + ".used_by")) {
-            used_by = main.getConfig().getStringList(args[0] + ".used_by");
-        }
-
-        if (main.getConfig().getInt(args[0] + ".required empty slots", 0) > emptySlots(player)) {
+        if (main.getConfig().getInt(code + ".required empty slots", 0) > emptySlots(player)) {
             player.sendMessage(ChatColor.RED + "Not enough empty inventory slots!");
             return true;
         }
-
-        used_by.add(player.getUniqueId().toString());
-        main.getConfig().set(args[0] + ".used_by", used_by);
+        
+        usedBy.add(player.getUniqueId().toString());
+        main.getConfig().set(code + ".used_by", usedBy);
         main.saveConfig();
-        try {
-            for (String rewardCommand :
-                    main.getConfig().getStringList(args[0] + ".commands")) {
+        sender.sendMessage(ChatColor.GREEN + "Code redeemed: " + code + ChatColor.GREEN + "!");
+        
+        if (main.getConfig().isSet(code + ".commands"))
+            for (String rewardCommand : main.getConfig().getStringList(code + ".commands")) {
                 Bukkit.dispatchCommand(
                         Bukkit.getConsoleSender(),
                         rewardCommand.replace("%PLAYER%", player.getName())
                 );
             }
-        } catch (NullPointerException e) {
-            sender.sendMessage(ChatColor.DARK_RED + "Internal Error: " + args[0] + ".commands is not set.");
-            return true;
-        }
-        sender.sendMessage(ChatColor.GREEN + "You redeemed " + args[0] + ChatColor.GREEN + "!");
         return true;
     }
 
